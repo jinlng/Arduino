@@ -1,0 +1,51 @@
+import time
+import machine
+
+def connect_blue_led():
+    """
+    Function to connect a blue LED to an Arduino Nano ESP32 board in a MicroPython environment.
+
+    This function initializes the pin D5 on the Arduino Nano ESP32 board as an output pin and connects a blue LED to it.
+
+    Returns:
+    - machine.Pin:
+        The Pin object representing the D5 pin on the Arduino Nano ESP32 board.
+
+    Raises:
+    - ValueError:
+        Raises an error if the pin D5 is not available on the Arduino Nano ESP32 board.
+    """
+
+    # Define the pin number for D5 on the Arduino Nano ESP32 board
+    pin_number = 8
+
+    try:
+        # Initialize the D5 pin as an output pin
+        led_pin = machine.Pin(pin_number, machine.Pin.OUT)
+
+        # Return the Pin object representing the D5 pin
+        return led_pin
+
+    except ValueError:
+        raise ValueError("Pin D5 is not available on the Arduino Nano ESP32 board.")
+
+# Example usage of the connect_blue_led function
+
+try:
+    # Connect the blue LED to the D5 pin on the Arduino Nano ESP32 board
+    blue_led = connect_blue_led()
+    print("Blue LED connected successfully.")
+
+    # Turn on the blue LED
+    blue_led.on()
+    print("Blue LED turned on.")
+
+    # Wait for 1 seconddelay(1000)
+    time.sleep(1)
+
+    # Turn off the blue LED
+    #blue_led.off()
+    #print("Blue LED turned off.")
+
+except ValueError as e:
+    print(f"Error while connecting blue LED: {e}")

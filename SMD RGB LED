@@ -1,0 +1,92 @@
+class RGBLED:
+    """
+    Class to represent a SMD RGB LED connected to an Arduino Nano ESP32.
+
+    Attributes:
+    - pin_red: int
+        The pin number on the Arduino Nano ESP32 for the red color of the RGB LED.
+    - pin_green: int
+        The pin number on the Arduino Nano ESP32 for the green color of the RGB LED.
+    - pin_blue: int
+        The pin number on the Arduino Nano ESP32 for the blue color of the RGB LED.
+    """
+
+    def __init__(self, pin_red: int, pin_green: int, pin_blue: int):
+        """
+        Constructor to instantiate the RGBLED class.
+
+        Parameters:
+        - pin_red: int
+            The pin number on the Arduino Nano ESP32 for the red color of the RGB LED.
+        - pin_green: int
+            The pin number on the Arduino Nano ESP32 for the green color of the RGB LED.
+        - pin_blue: int
+            The pin number on the Arduino Nano ESP32 for the blue color of the RGB LED.
+        """
+
+        self.pin_red = pin_red
+        self.pin_green = pin_green
+        self.pin_blue = pin_blue
+
+    def connect_to_arduino(self):
+        """
+        Connects the SMD RGB LED to the Arduino Nano ESP32.
+
+        Returns:
+        - str:
+            A string indicating the successful connection of the RGB LED to the Arduino Nano ESP32.
+        """
+
+        # Code to connect the RGB LED to the Arduino Nano ESP32
+        # Assuming the RGB LED is connected to pins D4, D5, and D6
+        # You may need to adjust the pin numbers based on your specific setup
+        # Make sure to set the pins as OUTPUT in your Arduino code
+
+        import machine
+
+        # Connecting the red pin
+        machine.Pin(self.pin_red, machine.Pin.OUT)
+
+        # Connecting the green pin
+        machine.Pin(self.pin_green, machine.Pin.OUT)
+
+        # Connecting the blue pin
+        machine.Pin(self.pin_blue, machine.Pin.OUT)
+
+        return "RGB LED connected to Arduino Nano ESP32 successfully."
+
+
+# Example usage of the RGBLED class:
+
+# Creating an instance of the RGBLED class
+rgb_led = RGBLED(4, 5, 6)
+
+# Connecting the RGB LED to the Arduino Nano ESP32
+connection_status = rgb_led.connect_to_arduino()
+
+# Printing the connection status
+print(connection_status)
+
+
+import machine
+import time
+
+# Assuming RGB LED is connected to pins D7, D8, and D9
+red_pin = machine.Pin(5, machine.Pin.OUT)
+green_pin = machine.Pin(4, machine.Pin.OUT)
+blue_pin = machine.Pin(6, machine.Pin.OUT)
+
+# Turn on red LED
+red_pin.value(1)
+time.sleep(2)
+red_pin.value(0)
+
+# Turn on green LED
+green_pin.value(1)
+time.sleep(2)
+green_pin.value(0)
+
+# Turn on blue LED
+blue_pin.value(1)
+time.sleep(2)
+blue_pin.value(0)

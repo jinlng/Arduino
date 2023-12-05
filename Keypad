@@ -1,0 +1,55 @@
+import machine
+
+class Keypad:
+    def __init__(self, rows, cols):
+        if len(rows) != 4 or len(cols) != 4:
+            raise ValueError("The number of rows and columns should be 4.")
+        
+        self.rows = rows
+        self.cols = cols
+ 
+        self.keys = [
+            ['1', '2', '3', 'A'],
+            ['4', '5', '6', 'B'],
+            ['7', '8', '9', 'C'],
+            ['*', '0', '#', 'D']
+        ]
+
+    def read_key(self):
+        for col_pin in self.cols:
+            machine.Pin(col_pin, machine.Pin.OUT).value(1)
+ 
+        for row_pin in self.rows:
+            machine.Pin(row_pin, machine.Pin.IN, machine.Pin.PULL_UP)
+ 
+        for col_index, col_pin in enumerate(self.cols):
+            machine.Pin(col_pin, machine.Pin.OUT).value(0)
+ 
+            for row_index, row_pin in enumerate(self.rows):
+                if machine.Pin(row_pin, machine.Pin.IN, machine.Pin.PULL_UP).value() == 0:
+                    return self.keys[row_index][col_index]
+ 
+            machine.Pin(col_pin, machine.Pin.OUT).value(1)
+ 
+        return None
+
+
+rows = [5, 6, 7, 8]
+cols = [9, 10, 17, 18]
+	# Create an instance of the Keypad class
+keypad = Keypad(rows, cols)
+ 
+# Read the key pressed on the keypad
+key = keypad.read_key()
+
+
+try:
+    while True:
+        key = keypad.read_key()
+        if key is not None and not pressed:
+            print(f"Pressed key: {key}")
+            pressed = True
+        elif key is None and pressed:
+            pressed = False
+except KeyboardInterrupt:
+    print("\nExiting...")

@@ -1,0 +1,15 @@
+import machine
+import time
+
+# Define the pin number for the LED
+led_pin = 48  #LED_Builtin corresponds to GPI48 on the Arduino Nano ESP32
+
+# Initialize the LED pin as an output
+led = machine.Pin(led_pin, machine.Pin.OUT)
+
+# Blink the LED
+while True:
+    led.on()   # Turn the LED on
+    time.sleep(1)  # Wait for 1 second
+    led.off()  # Turn the LED off
+    time.sleep(1)  # Wait for 1 second
